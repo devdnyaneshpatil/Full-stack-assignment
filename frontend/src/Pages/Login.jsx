@@ -13,13 +13,21 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+import axios from "axios";
 
 function Login() {
+  //toast initialization
+  const toast = useToast();
+
+  //loading state
+  const [isLoading, setIsLoading] = useState(false);
+
   //state and handling of show password
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -50,7 +58,35 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        formData
+      );
+      toast({
+        title: "Login Successfull",
+        description: "Welcome To Task Manager",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setIsLoading(false);
+    } catch (error) {
+      toast({
+        title: "Login Failed",
+        description:
+          error?.response?.data?.message || "Failed to login Try Again",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      setIsLoading(false);
+      setFormData({
+        email: "",
+        password: "",
+      });
+    }
   };
   const isEmailError = formData.email === "" || !validateEmail(formData.email);
   const isPasswordError =
@@ -141,6 +177,7 @@ function Login() {
               w="full"
               isDisabled={isEmailError || isPasswordError}
               type="submit"
+              isLoading={isLoading}
             >
               Login
             </Button>
