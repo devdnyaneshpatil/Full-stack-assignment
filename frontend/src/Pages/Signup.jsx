@@ -15,13 +15,14 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import axios from "axios";
 
 function Signup() {
+  const navigate = useNavigate();
+
   //toast initialization
   const toast = useToast();
 
@@ -62,7 +63,7 @@ function Signup() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:8080/api/auth/sign-up",
         formData
       );
@@ -74,6 +75,8 @@ function Signup() {
         isClosable: true,
       });
       setIsLoading(false);
+      localStorage.setItem("token", JSON.stringify(data.userObj.token));
+      navigate("/home");
     } catch (error) {
       toast({
         title: "Signup Failed",
@@ -84,8 +87,13 @@ function Signup() {
         isClosable: true,
       });
       setIsLoading(false);
+      setTouched({
+        userName: false,
+        email: false,
+        password: false,
+      });
       setFormData({
-        userName:"",
+        userName: "",
         email: "",
         password: "",
       });
@@ -209,10 +217,6 @@ function Signup() {
               Login
             </Link>
           </Text>
-          <Button w="full" mt={4} colorScheme="red" variant="outline" gap={"2"}>
-            Continue with
-            <FcGoogle size={"30"} />
-          </Button>
         </Container>
       </Box>
     </>
