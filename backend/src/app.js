@@ -6,14 +6,14 @@ const { passport } = require("./utils/gauth");
 const authContext = require("./db/context/auth.context");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("./config/constants");
-const path=require("path")
+const path = require("path");
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/images', express.static(path.join(__dirname, '../images')));
+app.use("/images", express.static(path.join(__dirname, "../images")));
 app.use("/api", require("./routes"));
 
 app.get("/", (req, res) => {
@@ -37,10 +37,12 @@ app.get(
   }),
   async function (req, res) {
     // Successful authentication
-    const isUserAvailable = await authContext.getUserByUserEmail(req.user.email);
-    
+    const isUserAvailable = await authContext.getUserByUserEmail(
+      req.user.email
+    );
+
     let user, token;
-    
+
     if (isUserAvailable) {
       token = jwt.sign({ userId: isUserAvailable._id }, JWT_SECRET);
       user = isUserAvailable;
@@ -59,10 +61,11 @@ app.get(
     //     token,
     //   },
     // });
-      res.redirect(`http://localhost:5173/home?token=${token}`);
+    res.redirect(
+      `https://full-stack-assignment-livid.vercel.app/home?token=${token}`
+    );
   }
 );
-
 
 app.all("*", (req, res, next) => {
   const err = new CustomError(
