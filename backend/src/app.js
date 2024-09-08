@@ -62,7 +62,7 @@ app.get(
     //   },
     // });
     res.redirect(
-      `https://full-stack-assignment-livid.vercel.app/home?token=${token}`
+      `https://full-stack-assignment-topaz.vercel.app/home?token=${token}`
     );
   }
 );
