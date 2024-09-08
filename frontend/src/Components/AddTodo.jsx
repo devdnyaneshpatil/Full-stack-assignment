@@ -42,7 +42,7 @@ function AddTodo({ fetchTasks }) {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/task/",
+        "https://full-stack-assignment-r44d.onrender.com/api/task/",
         todoData,
         {
           headers: {

@@ -54,7 +54,7 @@ function ProfileModal({ isOpen, onClose }) {
   const fetchUserDetails = async (token) => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:8080/api/user/", {
+      const { data } = await axios.get("https://full-stack-assignment-r44d.onrender.com/api/user/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -90,7 +90,7 @@ function ProfileModal({ isOpen, onClose }) {
 
     try {
       const { data } = await axios.patch(
-        "http://localhost:8080/api/user/",
+        "https://full-stack-assignment-r44d.onrender.com/api/user/",
         formData,
         {
           headers: {
@@ -140,7 +140,7 @@ function ProfileModal({ isOpen, onClose }) {
       const isUrl = /^(https?:\/\/)/.test(userData.profileImage);
       return isUrl
         ? userData.profileImage
-        : `http://localhost:8080/images/${userData.profileImage}`;
+        : `https://full-stack-assignment-r44d.onrender.com/images/${userData.profileImage}`;
     }
 
     return "./profile.jfif";

@@ -56,7 +56,7 @@ function Login() {
     setIsLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        "https://full-stack-assignment-r44d.onrender.com/api/auth/login",
         formData
       );
       setIsLoading(false);
@@ -89,7 +89,7 @@ function Login() {
 
   const handleGoogleAuth = async () => {
     // Open the Google login page in a new tab
-    window.open("http://localhost:8080/auth/google", "_self");
+    window.open("https://full-stack-assignment-r44d.onrender.com/auth/google", "_self");
   };
 
   const isEmailError = formData.email === "" || !validateEmail(formData.email);

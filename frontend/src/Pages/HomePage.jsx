@@ -21,7 +21,7 @@ function HomePage() {
 
   const fetchTasks = async (token) => {
     try {
-      const response = await axios.get("http://localhost:8080/api/task/", {
+      const response = await axios.get("https://full-stack-assignment-r44d.onrender.com/api/task/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -73,15 +73,16 @@ function HomePage() {
 
   const updateTaskStatus = async (taskId, newStatus) => {
     setLoading(true);
+    const token=JSON.parse(localStorage.getItem("token"));
     try {
       await axios.patch(
-        `http://localhost:8080/api/task/${taskId}`,
+        `https://full-stack-assignment-r44d.onrender.com/api/task/${taskId}`,
         { status: newStatus },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmRiMDBhNGZkMjgzMzBmZDMxZTU4NjQiLCJpYXQiOjE3MjU2NDY0MTZ9.QGGOz7DgULo8KFp7LKNbvcwwbcJjjrSmiolHJ1xFOuU",
+              `Bearer ${token}`,
           },
         }
       );

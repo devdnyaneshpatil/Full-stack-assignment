@@ -64,7 +64,7 @@ function Signup() {
     setIsLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/auth/sign-up",
+        "https://full-stack-assignment-r44d.onrender.com/api/auth/sign-up",
         formData
       );
       toast({

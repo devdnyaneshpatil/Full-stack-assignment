@@ -24,11 +24,11 @@ function DeleteTodo({ taskId, onClose, fetchTasks }) {
           navigate("/")
       }
     try {
-      await axios.delete(`http://localhost:8080/api/task/${taskId}`, {
+      await axios.delete(`https://full-stack-assignment-r44d.onrender.com/api/task/${taskId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmRiMDBhNGZkMjgzMzBmZDMxZTU4NjQiLCJpYXQiOjE3MjU2NDY0MTZ9.QGGOz7DgULo8KFp7LKNbvcwwbcJjjrSmiolHJ1xFOuU",
+            `Bearer ${token}`,
         },
       });
       setIsLoading(false);
