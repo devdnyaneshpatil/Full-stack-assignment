@@ -62,7 +62,7 @@ app.get(
     //   },
     // });
     res.redirect(
-      `https://full-stack-assignment-topaz.vercel.app/home?token=${token}`
+      `https://full-stack-assignment-auyq.vercel.app/home?token=${token}`
     );
   }
 );
