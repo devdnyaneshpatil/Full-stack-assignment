@@ -19,8 +19,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToken } from "../store/AuthReducer/actions";
 
 function Login() {
+  const dispatch=useDispatch()
   const navigate = useNavigate();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +71,7 @@ function Login() {
         isClosable: true,
       });
       localStorage.setItem("token", JSON.stringify(data.userObj.token));
+      dispatch(addToken(data.userObj.token))
       navigate("/home");
     } catch (error) {
       toast({
@@ -87,10 +91,10 @@ function Login() {
     }
   };
 
-  const handleGoogleAuth = async () => {
-    // Open the Google login page in a new tab
-    window.open("https://full-stack-assignment-r44d.onrender.com/auth/google", "_self");
-  };
+  // const handleGoogleAuth = async () => {
+  //   // Open the Google login page in a new tab
+  //   window.open("https://full-stack-assignment-r44d.onrender.com/auth/google", "_self");
+  // };
 
   const isEmailError = formData.email === "" || !validateEmail(formData.email);
   const isPasswordError =
@@ -195,7 +199,7 @@ function Login() {
           colorScheme="red"
           variant="outline"
           gap={"2"}
-          onClick={handleGoogleAuth}
+          //onClick={handleGoogleAuth}
         >
           Continue with <FcGoogle size={"30"} />
         </Button>
